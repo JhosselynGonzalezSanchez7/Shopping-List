@@ -1,31 +1,32 @@
 import { useState } from "react"
+import Listltem from "./components/ListItem";
 
 function App() {
   const [listItems, setListItems] = useState([
     {
-      id: "",
-      name: "",
-      quanty: 0,
-      unit: "",
+      id: "1",
+      name: "Arroz",
+      quantity: 1,
+      unit: "kg",
       checked: false,
     },
     {
-      id: "",
-      name: "",
-      quanty: 0,
-      unit: "",
+      id: "2",
+      name: "Frijol",
+      quantity: 1,
+      unit: "kg",
       checked: false,
     },
     {
-      id: "",
-      name: "",
-      quanty: 0,
-      unit: "",
+      id: "3",
+      name: "Leche",
+      quantity: 2,
+      unit: "lts",
       checked: false,
     },
   ])
 
-  const handleListItems = (e) => {
+  const handleItemChecked = (e) => {
    const newList = listItems.map(item =>{
     if (e.target.name === item.id){
       item.checked = !item.checked;
@@ -35,7 +36,7 @@ function App() {
   setListItems(newList);
   }
   return (
-    <div className="container text-center">
+    <div classname="container text-center">
       <div className="row">
         <div className="col text-start">
           <h1>Shopping List</h1>
@@ -47,125 +48,20 @@ function App() {
         </div>
       </div>
       <hr />
-      <div className="row">
-        <div className="col">
-          <input
-          checked={listItems[0].checked}
-          name= {listItems[0].id}
-          onClick={(e) => handleListItems(e)}
-          type="checkbox" 
-          />
-        </div>
-        <div className="col-2 text-start">
-          {
-            //itemChecked.first && <del>1 Kg</del>
-          }
-          {
-            //itemChecked.first && "1 Kg"
-          }
-          {
-            listItems[0].checked ? 
-            <del>{`${listItems[0].quanty}${listItems[0].unit}`} </del>: 
-            `${listItems[0].quanty}${listItems[0].unit}`
-          }
-          </div>
-        <div 
-        className="col-5 col-md-6 text-start" 
-        style={{textDecoration: listItems[0].checked && "Line-through"}}>
-          {listItems[0].name}
-          </div>
-        <div className="col-4 col-md-3 btn-group btn-group-sm" role="group">
-          <button type="button" className="btn btn-outline-primary">
-            <i className="bi bi-pencil-square"></i>
-          </button>
-          <button type="button" className="btn btn-outline-primary">
-            <i className="bi bi-files"></i>
-          </button>
-          <button type="button" className="btn btn-outline-danger">
-            <i className="bi bi-trash2-fill"></i>
-          </button>
-        </div>
-      </div>
-  
-      <div className="row">
-        <div className="col">
-          <input
-          checked={listItems[0].checked}
-          name= {listItems[0].id}
-          onClick={(e) => handleListItems(e)}
-          type="checkbox" 
-          />
-        </div>
-        <div className="col-2 text-start">
-          {
-            //itemChecked.first && <del>1 Kg</del>
-          }
-          {
-            //itemChecked.first && "1 Kg"
-          }
-          {
-            listItems[0].checked ? 
-            <del>{`${listItems[0].quanty}${listItems[0].unit}`} </del>: 
-            `${listItems[0].quanty}${listItems[0].unit}`
-          }
-          </div>
-        <div 
-        className="col-5 col-md-6 text-start" 
-        style={{textDecoration: listItems[0].checked && "Line-through"}}>
-          {listItems[0].name}
-          </div>
-        <div className="col-4 col-md-3 btn-group btn-group-sm" role="group">
-          <button type="button" className="btn btn-outline-primary">
-            <i className="bi bi-pencil-square"></i>
-          </button>
-          <button type="button" className="btn btn-outline-primary">
-            <i className="bi bi-files"></i>
-          </button>
-          <button type="button" className="btn btn-outline-danger">
-            <i className="bi bi-trash2-fill"></i>
-          </button>
-        </div>
-      </div>
-     
-      <div className="row">
-        <div className="col">
-          <input
-          checked={listItems[0].checked}
-          name= {listItems[0].id}
-          onClick={(e) => handleListItems(e)}
-          type="checkbox" 
-          />
-        </div>
-        <div className="col-2 text-start">
-          {
-            //itemChecked.first && <del>1 Kg</del>
-          }
-          {
-            //itemChecked.first && "1 Kg"
-          }
-          {
-            listItems[0].checked ? 
-            <del>{`${listItems[0].quanty}${listItems[0].unit}`} </del>: 
-            `${listItems[0].quanty}${listItems[0].unit}`
-          }
-          </div>
-        <div 
-        className="col-5 col-md-6 text-start" 
-        style={{textDecoration: listItems[0].checked && "Line-through"}}>
-          {listItems[0].name}
-          </div>
-        <div className="col-4 col-md-3 btn-group btn-group-sm" role="group">
-          <button type="button" className="btn btn-outline-primary">
-            <i className="bi bi-pencil-square"></i>
-          </button>
-          <button type="button" className="btn btn-outline-primary">
-            <i className="bi bi-files"></i>
-          </button>
-          <button type="button" className="btn btn-outline-danger">
-            <i className="bi bi-trash2-fill"></i>
-          </button>
-        </div>
-      </div>
+      {
+  listItems.map ((item) => (
+    
+  <Listltem
+  id ={item[0].id}
+  name ={item[0].name}
+  quantity ={item[0].quantity}
+  unit ={item[0].unit}
+  checked ={item[0].checked}
+  handleItemChecked={handleItemChecked}
+  />
+  ))
+}
+      <hr />
       </div>
 
   )
