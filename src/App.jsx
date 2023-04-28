@@ -1,38 +1,13 @@
 import { useState } from "react"
 import ListItem from "./components/ListItem";
 import NewItemButton from "./components/NewItemButton";
+import ClearListButton from "./components/ClearListButton";
 
 function App() {
-  const [listItems, setListItems] = useState([
-    {
-      id: "1",
-      name: "Arroz",
-      quantity: 1,
-      unit:"Kg",
-      checked: false,
-    },
-    {
-      id: "2",
-      name: "Frijol",
-      quantity: 1,
-      unit:"Kg",
-      checked: false,
-    },
-    {
-      id: "3",
-      name: "Leche",
-      quantity: 2,
-      unit:"Lts",
-      checked: false,
-    },
-    {
-      id: "4",
-      name: "Papel Higienico",
-      quantity: 1,
-      unit:"Pz",
-      checked: false,
-    },
-  ])
+
+  const [listItems, setListItems] = useState(
+    JSON.parse(localStorage.getItem("listItems")) || []
+  );
 
   const handleItemChecked = (e) => {
     const newList = listItems.map(item => {
@@ -41,6 +16,7 @@ function App() {
       }
       return item;
     })
+    localStorage.setItem("listItems",JSON.stringify(newList));
     setListItems(newList);
   }
 
@@ -51,30 +27,40 @@ function App() {
           <h1>Shopping List</h1>
         </div>
         <div className="col text-end mt-2">
+          <ClearListButton setListItems={setListItems}/>
           <NewItemButton 
           listItems={listItems}
-          setListItems={setListItems}/>
+          setListItems={setListItems} 
+          />
         </div>
       </div>
       <hr />
       {
+        listItems.length === 0 && (
+          <div>
+            <h3>Your list is empty...</h3>
+            Please add a new item to start.
+          </div>
+        )
+      }
+      {
         listItems.map((item) => (
           <ListItem 
-          id={item.id}
-          name={item.name}
-          quantity={item.quantity}
-          unit={item.unit}
-          checked={item.checked}
+          item={item}
           handleItemChecked={handleItemChecked}
+          listItems={listItems}
+          setListItems={setListItems}
           />
         ))
       }
       <hr />
       <div className= "row">
       <div className= "col text-end ">
-        <NewItemButton
+        <ClearListButton setListItems={setListItems}/>
+        <NewItemButton 
         listItems={listItems}
-        setListItems={setListItems}/>
+        setListItems={setListItems} 
+        />
       </div>
       </div>
     </div>
